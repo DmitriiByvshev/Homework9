@@ -1,20 +1,14 @@
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Main {
 
-    public static void main  (String[] args) {
+    public static void main(String[] args) {
 
-        Course course1 = new Course("Math");
-        Course course2 = new Course("Chemistry");
-        Course course3 = new Course("History");
-        Course course4 = new Course("English");
-        Course course5 = new Course("Music");
 
-        ArrayList<Course> courses = new ArrayList<>();
-
-        Student student1 = new Student("John", Arrays.asList("Math", "Chemistry"));
-        Student student2 = new Student("Peter", Arrays.asList("Math", "History"));
+        Student student1 = new Student("John", Arrays.asList("Music", "Math"));
+        Student student2 = new Student("Peter", Arrays.asList("Music", "English"));
         Student student3 = new Student("Antony", Arrays.asList("Music", "History", "English"));
         Student student4 = new Student("Usaama", Arrays.asList("Math"));
         Student student5 = new Student("Elena", Arrays.asList("Math", "History"));
@@ -29,14 +23,29 @@ public class Main {
         students.add(student5);
         students.add(student6);
 
-        List<String> result = students.stream()
-                .distinct()
+        task1(students);
+        task2(students);
+        task3(students, "Math");
+
+
+    }
+
+    static void task1(ArrayList<Student> students) {
+        System.out.println(students.stream().map(student -> student.getAllCourses).flatMap(List::stream).distinct().collect(Collectors.toList()));
+    }
+
+    static void task2(ArrayList<Student> students) {
+        System.out.println(students.stream()
+                .sorted(Comparator.comparing(student -> student.getAllCourses.size()))
                 .limit(3)
-                .map((student) -> student.name)
-                .collect(Collectors.toList());
-        System.out.println(result);
+                .map(student -> student.name)
+                .collect(Collectors.toList()));
+    }
 
-
-  }
-
+    static void task3(ArrayList<Student> students, String courseFilter) {
+                System.out.println(students.stream()
+                .filter(student -> student.getAllCourses.contains(courseFilter))
+                .map(student -> student.name)
+                .collect(Collectors.toList()));
+    }
 }

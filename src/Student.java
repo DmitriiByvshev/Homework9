@@ -7,9 +7,9 @@ public class Student {
     List<String> getAllCourses;
 
 
-    public <T> Student(String name, List<String> asList) {
+    public <T> Student(String name, List<String> getAllCourses) {
         this.name = name;
-        this.getAllCourses = asList;
+        this.getAllCourses = getAllCourses;
     }
 
 }
